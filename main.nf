@@ -10,7 +10,7 @@ genome_fasta = "${test_data_dir}/genomics/sarscov2/genome/genome.fasta"
 test_1_fastq_gz = "${test_data_dir}/genomics/sarscov2/illumina/fastq/test_1.fastq.gz"
 
 workflow {
-    def testclass = Metadata(name: 'test_1', r1: test_1_fastq_gz )
+    def testclass = new CustomObject(name: 'test_1', r1: test_1_fastq_gz )
     fasta = file(genome_fasta, checkIfExists: true)
 
     BWA_INDEX ( fasta )
