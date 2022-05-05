@@ -10,6 +10,9 @@ class Metadata {
         // that pass through channles. This allows for caching when this object is used.
         KryoHelper.register(Metadata)
     }
-
-    Path path
+    String name
+    /** The path to the read one FASTQ */
+    Path r1
+    /** The path to the read two FASTQ */
+    Path r2
 }

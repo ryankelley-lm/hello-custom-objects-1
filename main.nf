@@ -10,14 +10,9 @@ genome_fasta = "${test_data_dir}/genomics/sarscov2/genome/genome.fasta"
 test_1_fastq_gz = "${test_data_dir}/genomics/sarscov2/illumina/fastq/test_1.fastq.gz"
 
 workflow {
-    input = [
-        [ id:'test', single_end:true ], // meta map
-        [
-            file(test_1_fastq_gz, checkIfExists: true)
-        ]
-    ]
+    def testclass = Metadata(name: 'test_1', r1: test_1_fastq_gz )
     fasta = file(genome_fasta, checkIfExists: true)
 
     BWA_INDEX ( fasta )
-    BWA_MEM ( input, BWA_INDEX.out.index, false )
+    BWA_MEM ( testclass, BWA_INDEX.out.index, false )
 }
