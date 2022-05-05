@@ -8,7 +8,7 @@ process BWA_MEM {
         'quay.io/biocontainers/mulled-v2-fe8faa35dbf6dc65a0f7f5d4ea12e31a79f73e40:c56a3aabc8d64e52d5b9da1e8ecec2031668596d-0' }"
 
     input:
-    val sample
+    tuple val(meta), path(reads)
     path  index
     val   sort_bam
 

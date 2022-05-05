@@ -3,7 +3,7 @@ import nextflow.io.ValueObject
 import nextflow.util.KryoHelper
 
 @ValueObject
-@Immutable(copyWith=true, knownImmutables = ['id', 'single_end'])
+@Immutable(copyWith=true, knownImmutables = ['id', 'single_end', 'read_group'])
 class CustomObject {
     static {
         // Register this class with the Kryo framework that serializes and deserializes objects
@@ -12,4 +12,5 @@ class CustomObject {
     }
     String id
     Boolean single_end
+    String read_group
 }
