@@ -8,7 +8,7 @@ process BWA_MEM {
         'quay.io/biocontainers/mulled-v2-fe8faa35dbf6dc65a0f7f5d4ea12e31a79f73e40:c56a3aabc8d64e52d5b9da1e8ecec2031668596d-0' }"
 
     input:
-    tuple val(meta), path(reads)
+    val meta
     path  index
     val   sort_bam
 
@@ -33,7 +33,7 @@ process BWA_MEM {
         $read_group \\
         -t $task.cpus \\
         \$INDEX \\
-        $reads \\
+        $meta.r1 \\
         | samtools $samtools_command $args2 --threads $task.cpus -o ${prefix}.bam -
 
     cat <<-END_VERSIONS > versions.yml

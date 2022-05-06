@@ -10,16 +10,13 @@ genome_fasta = "${test_data_dir}/genomics/sarscov2/genome/genome.fasta"
 test_1_fastq_gz = "${test_data_dir}/genomics/sarscov2/illumina/fastq/test_1.fastq.gz"
 
 workflow {
-    def meta = new CustomObject(id: 'test_1', single_end: true, read_group: "\"@RG\\tID:1\\tSM:sample\\tLB:rg_lb\\tPL:illumina\"")
-    input = [
-        meta,
-        [
-            file(test_1_fastq_gz, checkIfExists: true)
-        ]
-    ]
+    def meta = new CustomObject(id: 'test_1',
+                                single_end: true,
+                                read_group: "\"@RG\\tID:1\\tSM:sample\\tLB:rg_lb\\tPL:illumina\"",
+                                r1: file(test_1_fastq_gz, checkIfExists: true))
 
     fasta = file(genome_fasta, checkIfExists: true)
 
     BWA_INDEX ( fasta )
-    BWA_MEM ( input, BWA_INDEX.out.index, false )
+    BWA_MEM ( meta, BWA_INDEX.out.index, false )
 }
