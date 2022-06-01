@@ -20,7 +20,7 @@ workflow STEPONE_WORKFLOW {
     main:
         processResult = STEPONE_PROCESS(workflowInput).map {
             name, path1, path2 ->
-                return CustomObject.newInstance(name, path1, path2) 
+                return new CustomObject(name, path1, path2) 
         }
     emit:
         processResult
