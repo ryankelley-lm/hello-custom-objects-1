@@ -1,17 +1,16 @@
-
 nextflow.enable.dsl = 2
 
 process STEPONE_PROCESS {
     input:
-    path myinput
+    tuple val(myname), path(r1), path(r2)
 
     output:
-    tuple val("${myinput.name}"), path("output1.txt"), path("output2.txt"), emit: paths
+    tuple val("${myname}"), path("output1.txt"), path("output2.txt"), emit: paths
 
     script:
     """
-    cat ${myinput.r1} ${myinput.r2} >> output1.txt
-    cat ${myinput.r2} ${myinput.r1} >> output2.txt
+    cat ${r1} ${r2} >> output1.txt
+    cat ${r2} ${r1} >> output2.txt
     """
 }
 
@@ -21,7 +20,7 @@ workflow STEPONE_WORKFLOW {
     main:
         processResult = STEPONE_PROCESS(workflowInput).map {
             name, path1, path2 ->
-                return new CustomObject(name, path1, path2) 
+                return CustomObject.newInstance(name, path1, path2) 
         }
     emit:
         processResult
